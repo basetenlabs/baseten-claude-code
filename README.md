@@ -7,15 +7,16 @@ This is an alternative way of powering Claude Code with higher throughput (token
 ## Performance & Pricing (Updated Oct 27th, 2025)
 
 ### Benchmarks (GLM 4.6 vs. Claude Sonnet 4.5)
+In evaluations across 8 authoritative benchmarks for general model capabilities—including AIME 25, GPQA, LCB v6, HLE, and SWE-Bench Verified—GLM-4.6 achieves performance on par with Claude Sonnet 4/Claude Sonnet 4.6 on several leaderboards.
 ![alt text](/glm-4.6-benchmarks.png)
 
-### Pricing (GLM 4.6 vs. Claude Sonnet 4.5)
+### Pricing (Lower is better) 
 | Model | Input Tokens | Output Tokens |
 |-------|--------------|---------------|
 | Claude Sonnet 4.5 | $3.00 /M | $15.00 /M |
 | GLM-4.6 on Baseten | $0.60 /M | $2.20 /M |
 
-### Speed (Throughput) (GLM 4.6 vs. Claude Sonnet 4.5)
+### Speed (Throughput) (Higer is better)
 | Model | Tokens per Second |
 |-------|-------------------|
 | Claude Sonnet 4.5 | ~60 TPS |
