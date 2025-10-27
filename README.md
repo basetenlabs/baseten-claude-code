@@ -16,7 +16,7 @@ In evaluations across 8 authoritative benchmarks for general model capabilitiesâ
 | Claude Sonnet 4.5 | $3.00 /M | $15.00 /M |
 | GLM-4.6 on Baseten | $0.60 /M | $2.20 /M |
 
-### Speed (Throughput) (Higer is better)
+### Speed (Throughput) (Higher is better)
 | Model | Tokens per Second |
 |-------|-------------------|
 | Claude Sonnet 4.5 | ~60 TPS |
