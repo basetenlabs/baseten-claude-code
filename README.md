@@ -1,16 +1,38 @@
 # Claude Code with Baseten Model APIs
 
-Use Claude Code with Baseten's GLM-4.6, GPT-OSS 120B, and other frontier open-source models via LiteLLM proxy.
+Run Claude Code with Baseten's GLM-4.6, GPT-OSS 120B, Kimi K2 and other frontier open-source models via LiteLLM proxy. We have designed shell scripts to help you use [Baseten Model APIs](https://www.baseten.co/products/model-apis/) in Claude Code <1min.
+
+This is an alternative way of powering Claude Code with higher throughput (tokens per second) and at a substantially lower cost, with on par coding performance.
+
+## Performance & Pricing (Updated Oct 27th, 2025)
+
+### Benchmarks (GLM 4.6 vs. Claude Sonnet 4.5)
+![alt text](/glm-4.6-benchmarks.png)
+
+### Pricing (GLM 4.6 vs. Claude Sonnet 4.5)
+| Model | Input Tokens | Output Tokens |
+|-------|--------------|---------------|
+| Claude Sonnet 4.5 | $3.00 /M | $15.00 /M |
+| GLM-4.6 on Baseten | $0.60 /M | $2.20 /M |
+
+### Speed (Throughput) (GLM 4.6 vs. Claude Sonnet 4.5)
+| Model | Tokens per Second |
+|-------|-------------------|
+| Claude Sonnet 4.5 | ~60 TPS |
+| GLM-4.6 on Baseten | ~100+ TPS |
 
 ## Quick Start
 
-### 1. Install Dependencies
+### 1. Install Dependencies and Clone repo
 
 ```bash
 # Install LiteLLM
 pip install litellm[proxy]
 # Install Claude Code CLI
 npm install -g @anthropic-ai/claude-code
+# Clone and enter repo directory
+git clone https://github.com/basetenlabs/baseten-claude-code.git
+cd /baseten-claude-code
 ```
 
 ### 2. Set your Baseten API key
