@@ -53,9 +53,24 @@ Keep this terminal running.
 
 ### 4. Launch Claude Code (in a new terminal)
 
+You can launch Claude Code from anywhere:
+
 ```bash
+# From the baseten-claude-code directory
 ./launch_claude_code.sh
+
+# Or from any other directory (Claude Code will open in that directory)
+cd /path/to/your/project
+/path/to/baseten-claude-code/launch_claude_code.sh
+
+# Or add to your PATH for easy access
+# Add to ~/.zshrc or ~/.bashrc:
+export PATH="$PATH:/path/to/baseten-claude-code"
+# Then you can run from anywhere:
+launch_claude_code.sh
 ```
+
+**Note**: The script will find its configuration files automatically, so you can run it from any directory. Claude Code will open in your current working directory.
 
 That's it! Claude Code will now use Baseten models.
 

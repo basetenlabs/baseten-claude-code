@@ -1,17 +1,19 @@
 #!/bin/bash
 
 # Launch Claude Code with Baseten proxy configuration
+# Can be run from any directory - Claude Code will open in the current directory
 
-cd "$(dirname "$0")"
+# Get the directory where this script is located
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
-# Load environment variables from .env
-if [ ! -f .env ]; then
-    echo "❌ .env file not found!"
+# Load environment variables from .env (in the script's directory)
+if [ ! -f "$SCRIPT_DIR/.env" ]; then
+    echo "❌ .env file not found in $SCRIPT_DIR!"
     echo "Please create it from env.example"
     exit 1
 fi
 
-source .env
+source "$SCRIPT_DIR/.env"
 
 # Verify required environment variables are set
 if [ -z "$ANTHROPIC_BASE_URL" ] || [ -z "$ANTHROPIC_API_KEY" ]; then
@@ -36,6 +38,11 @@ echo "🚀 Launching Claude Code..."
 echo ""
 
 # Launch Claude Code with Baseten model (unless user specifies a different model)
+# Claude Code will open in the current working directory
+CURRENT_DIR="$(pwd)"
+echo "📁 Working directory: $CURRENT_DIR"
+echo ""
+
 if [[ "$*" == *"--model"* ]]; then
     claude "$@"
 else
