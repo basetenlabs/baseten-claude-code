@@ -53,20 +53,16 @@ Keep this terminal running.
 
 ### 4. Launch Claude Code (in a new terminal)
 
-You can launch Claude Code from anywhere:
+You can launch Claude Code from anywhere, like another repo:
 
 ```bash
-# From the baseten-claude-code directory
-./launch_claude_code.sh
-
-# Or from any other directory (Claude Code will open in that directory)
 cd /path/to/your/project
 /path/to/baseten-claude-code/launch_claude_code.sh
 
 # Or add to your PATH for easy access
 # Add to ~/.zshrc or ~/.bashrc:
 export PATH="$PATH:/path/to/baseten-claude-code"
-# Then you can run from anywhere:
+# Then you can run from anywhere as long as proxy is running in the background from step 3:
 launch_claude_code.sh
 ```
 
