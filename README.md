@@ -26,13 +26,13 @@ In evaluations across 8 authoritative benchmarks for general model capabilitiesâ
 
 Before setting up, you'll need:
 
-1. **LiteLLM** - See [LiteLLM Installation Docs](https://docs.litellm.ai/docs/proxy_server) for installation instructions
+1. **LiteLLM** - Install with `pip install litellm[proxy]`
 2. **Claude Code CLI** - Install with `npm install -g @anthropic-ai/claude-code`
 3. **Baseten API Key** - Get yours from [Baseten API Keys](https://app.baseten.co/settings/api_keys)
 
 ## Quick Start
 
-### 1. Clone and Configure
+### 1. Clone and Configure Env.
 
 ```bash
 git clone https://github.com/basetenlabs/baseten-claude-code.git
