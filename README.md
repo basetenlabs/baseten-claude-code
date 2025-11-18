@@ -41,7 +41,7 @@ cp env.example .env
 # Edit .env and add your BASETEN_API_KEY
 ```
 
-### 2. Set Up Integration (Recommended)
+### 2. Set Up Integration
 
 For IDE integrations and seamless `claude` command usage:
 
