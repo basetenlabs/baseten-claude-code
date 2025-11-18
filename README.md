@@ -1,6 +1,6 @@
 # Claude Code with Baseten Model APIs
 
-Run Claude Code with Baseten's GLM-4.6, GPT-OSS 120B, Kimi K2 and other frontier open-source models via LiteLLM proxy. We have designed shell scripts to help you use [Baseten Model APIs](https://www.baseten.co/products/model-apis/) in Claude Code <1min.
+Run Claude Code with Baseten's GLM-4.6, GPT-OSS 120B, Kimi K2 and other frontier open-source models via LiteLLM proxy. This enables Claude Code to work seamlessly with IDE integrations (PyCharm, VS Code, etc.) and provides higher throughput at lower cost.
 
 This is an alternative way of powering Claude Code with higher throughput (tokens per second) and at a substantially lower cost, with on par coding performance.
 
@@ -22,28 +22,38 @@ In evaluations across 8 authoritative benchmarks for general model capabilities�
 | Claude Sonnet 4.5 | ~60 TPS |
 | GLM-4.6 on Baseten | ~100+ TPS |
 
+## Prerequisites
+
+Before setting up, you'll need:
+
+1. **LiteLLM** - See [LiteLLM Installation Docs](https://docs.litellm.ai/docs/proxy_server) for installation instructions
+2. **Claude Code CLI** - Install with `npm install -g @anthropic-ai/claude-code`
+3. **Baseten API Key** - Get yours from [Baseten API Keys](https://app.baseten.co/settings/api_keys)
+
 ## Quick Start
 
-### 1. Install Dependencies and Clone repo
+### 1. Clone and Configure
 
 ```bash
-# Install LiteLLM
-pip install litellm[proxy]
-# Install Claude Code CLI
-npm install -g @anthropic-ai/claude-code
-# Clone and enter repo directory
 git clone https://github.com/basetenlabs/baseten-claude-code.git
-cd /baseten-claude-code
+cd baseten-claude-code
+cp env.example .env
+# Edit .env and add your BASETEN_API_KEY
 ```
 
-### 2. Set your Baseten API key
+### 2. Set Up Integration (Recommended)
+
+For IDE integrations and seamless `claude` command usage:
 
 ```bash
-cp env.example .env
-# Edit .env and add your BASETEN_API_KEY from https://app.baseten.co/settings/api_keys
+source ./set-baseten.sh
 ```
 
-### 3. Start the LiteLLM proxy
+**Important**: You must **source** the script (don't execute it). If you try to run `./set-baseten.sh` directly, it will exit with an error. Sourcing sets environment variables immediately in your current shell and configures your shell so that `claude` works globally and integrates with IDEs like PyCharm, VS Code, and Cursor.
+
+### 3. Start LiteLLM Proxy
+
+Run the proxy:
 
 ```bash
 ./setup_baseten_claude_code.sh
@@ -51,30 +61,40 @@ cp env.example .env
 
 Keep this terminal running.
 
-### 4. Launch Claude Code (in a new terminal)
+### 4. Use Claude Code
 
-You can launch Claude Code from anywhere, like another repo:
+Now you can run `claude` from any directory:
 
 ```bash
 cd /path/to/your/project
-/path/to/baseten-claude-code/launch_claude_code.sh
-
-# Or add to your PATH for easy access
-# Add to ~/.zshrc or ~/.bashrc:
-export PATH="$PATH:/path/to/baseten-claude-code"
-# Then you can run from anywhere as long as proxy is running in the background from step 3:
-launch_claude_code.sh
+claude
 ```
 
-**Note**: The script will find its configuration files automatically, so you can run it from any directory. Claude Code will open in your current working directory.
+Claude Code will use Baseten models automatically! 
 
-That's it! Claude Code will now use Baseten models.
+**To switch back to Anthropic:**
+```bash
+source ./set-anthropic.sh
+```
+
+## Configuration
+
+### Environment Variables
+
+The `.env` file contains:
+
+- `BASETEN_API_KEY`: Your Baseten API key (used by LiteLLM proxy)
+- `ANTHROPIC_BASE_URL`: Set to `http://localhost:4000` (LiteLLM proxy endpoint)
+- `ANTHROPIC_API_KEY`: Dummy key to pass Claude Code's validation
+
+When you source `set-baseten.sh`, these are exported in your shell config (`.zshrc`/`.bashrc`) so `claude` works globally.
 
 ## Available Models
 
-The following Baseten models are configured:
+The following Baseten models are pre-configured:
 
-- **GLM-4.6**: `baseten/zai-org/glm-4.6`(default)
+- **GLM-4.6**: `baseten/zai-org/glm-4.6`
+- **Kimi K2 Thinking**: `baseten/moonshotai/kimi-k2-thinking`
 - **GPT-OSS 120B**: `baseten/openai/gpt-oss-120b`
 - **Qwen3 235B**: `baseten/qwen/qwen3-235b-a22b-instruct-2507`
 - **Qwen3 Coder 480B**: `baseten/qwen/qwen3-coder-480b-a35b-instruct`
@@ -85,17 +105,17 @@ The following Baseten models are configured:
 
 ### Switching Models
 
-Switch models in Claude Code after the client has launched using:
+Switch models in Claude Code after launch:
+
 ```
-/model baseten/deepseek-ai/deepseek-v3.1
+/model baseten/moonshotai/kimi-k2-thinking
 ```
 
 Or launch with a specific model:
+
 ```bash
-./launch_claude_code.sh --model baseten/moonshotai/kimi-k2-instruct-0905
+claude --model baseten/moonshotai/kimi-k2-thinking
 ```
-Note:
-Currently, Baseten does not support `thinking` in Claude code. Please ensure it is turned off.
 
 ## How It Works
 
@@ -103,26 +123,38 @@ Currently, Baseten does not support `thinking` in Claude code. Please ensure it 
 Claude Code → LiteLLM Proxy (localhost:4000) → Baseten API
 ```
 
-**Note**: Claude Code normalizes model names to lowercase. The proxy handles the routing from lowercase to proper Baseten model APIs case-sensitive slugs.
-The proxy maps Claude Code's default models (`claude-haiku`, `claude-sonnet`, `claude-opus`) to Baseten GPT-OSS 120B to suppress Claude Code's internal checks that cause errors.
+**Key points:**
+- Claude Code normalizes model names to lowercase. The proxy handles routing from lowercase to proper Baseten model API case-sensitive slugs.
+- The proxy maps Claude Code's default models (`claude-haiku`, `claude-sonnet`, `claude-opus`) to Baseten GPT-OSS 120B to suppress Claude Code's internal checks.
+- `drop_params: true` ensures unsupported parameters are dropped, preventing errors.
 
 ## Files
 
 - `litellm_config.yaml` - LiteLLM proxy configuration with all models
+- `set-baseten.sh` - Configure shell to use Baseten models. **Must be sourced**: `source ./set-baseten.sh`
+- `set-anthropic.sh` - Switch back to Anthropic models. **Must be sourced**: `source ./set-anthropic.sh`
 - `setup_baseten_claude_code.sh` - Start the proxy
-- `launch_claude_code.sh` - Launch Claude Code with proper environment
 - `env.example` - Environment variables template
 - `.env` - Your API keys (not committed to git)
 
 ## Troubleshooting
 
 **Proxy not starting**: 
-- Check port 4000 is available
+- Check port 4000 is available: `lsof -i :4000`
+- Verify `.env` has valid `BASETEN_API_KEY`
 
 **Claude Code errors**: 
-- Ensure proxy is running (`curl http://localhost:4000/health`)
-- Verify `.env` has valid `BASETEN_API_KEY`
+- Ensure proxy is running: `curl http://localhost:4000/health`
+- Verify environment variables are set: `echo $ANTHROPIC_BASE_URL`, `echo $ANTHROPIC_API_KEY`
+- If you executed the script instead of sourcing it, source it now: `source ./set-baseten.sh`
 
 **Model not found**: 
 - The proxy automatically maps Claude models to Baseten
 - Use `/model` command to switch to available Baseten models
+- Check `litellm_config.yaml` has the model configured
+
+## References
+
+- [LiteLLM Documentation](https://docs.litellm.ai/)
+- [LiteLLM Proxy Server](https://docs.litellm.ai/docs/proxy_server)
+- [Baseten Model APIs](https://docs.baseten.co/development/model-apis/overview)
