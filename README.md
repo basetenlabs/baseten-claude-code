@@ -1,26 +1,25 @@
 # Claude Code with Baseten Model APIs
 
-Run Claude Code with Baseten's GLM-4.6, GPT-OSS 120B, Kimi K2 and other frontier open-source models via LiteLLM proxy. This enables Claude Code to work seamlessly with IDE integrations (PyCharm, VS Code, etc.) and provides higher throughput at lower cost.
+Run Claude Code with Baseten's MiniMax M2.5, GLM 5, Kimi K2.5 and other frontier open-source models via LiteLLM proxy. This enables Claude Code to work seamlessly with IDE integrations (PyCharm, VS Code, etc.) and provides higher throughput at lower cost.
 
 This is an alternative way of powering Claude Code with higher throughput (tokens per second) and at a substantially lower cost, with on par coding performance.
 
-## Performance & Pricing (Updated Oct 27th, 2025)
+## Sample Performance & Pricing
 
-### Benchmarks (GLM 4.6 vs. Claude Sonnet 4.5)
-In evaluations across 8 authoritative benchmarks for general model capabilities—including AIME 25, GPQA, LCB v6, HLE, and SWE-Bench Verified—GLM-4.6 achieves performance on par with Claude Sonnet 4/Claude Sonnet 4.6 on several leaderboards.
-![alt text](/glm-4.6-benchmarks.png)
+### Benchmarks (Kimi K2.5 vs. Claude Opus 4.6) 
+![alt text](/kimi-k2.5-benchmarks.png)
 
 ### Pricing (Lower is better) 
 | Model | Input Tokens | Output Tokens |
 |-------|--------------|---------------|
-| Claude Sonnet 4.5 | $3.00 /M | $15.00 /M |
-| GLM-4.6 on Baseten | $0.60 /M | $2.20 /M |
+| Claude Opus 4.6 | $5.00 /M | $25.00 /M |
+| Kimi K2.5 on Baseten | $0.60 /M | $3.00 /M |
 
 ### Speed (Throughput) (Higher is better)
 | Model | Tokens per Second |
 |-------|-------------------|
-| Claude Sonnet 4.5 | ~60 TPS |
-| GLM-4.6 on Baseten | ~100+ TPS |
+| Claude Opus 4.6 | ~60+ TPS |
+| Kimi K2.5 on Baseten | ~300+ TPS |
 
 ## Prerequisites
 
@@ -93,22 +92,23 @@ When you source `set-baseten.sh`, these are exported in your shell config (`.zsh
 
 The following Baseten models are pre-configured:
 
-- **GLM-4.6**: `baseten/zai-org/glm-4.6`
-- **Kimi K2 Thinking**: `baseten/moonshotai/kimi-k2-thinking`
-- **GPT-OSS 120B**: `baseten/openai/gpt-oss-120b`
-- **Qwen3 235B**: `baseten/qwen/qwen3-235b-a22b-instruct-2507`
-- **Qwen3 Coder 480B**: `baseten/qwen/qwen3-coder-480b-a35b-instruct`
-- **Kimi K2**: `baseten/moonshotai/kimi-k2-instruct-0905`
-- **DeepSeek V3.1**: `baseten/deepseek-ai/deepseek-v3.1`
-- **DeepSeek R1**: `baseten/deepseek-ai/deepseek-r1-0528`
 - **DeepSeek V3**: `baseten/deepseek-ai/deepseek-v3-0324`
+- **DeepSeek V3.1**: `baseten/deepseek-ai/deepseek-v3.1`
+- **GLM-4.6**: `baseten/zai-org/glm-4.6`
+- **GLM-4.7**: `baseten/zai-org/glm-4.7`
+- **GLM-5**: `baseten/zai-org/glm-5`
+- **Kimi K2**: `baseten/moonshotai/kimi-k2-instruct-0905`
+- **Kimi K2 Thinking**: `baseten/moonshotai/kimi-k2-thinking`
+- **Kimi K2.5**: `baseten/moonshotai/kimi-k2.5`
+- **MiniMax M2.5**: `baseten/minimaxai/minimax-m2.5`
+- **GPT-OSS 120B**: `baseten/openai/gpt-oss-120b`
 
 ### Switching Models
 
 Switch models in Claude Code after launch:
 
 ```
-/model baseten/moonshotai/kimi-k2-thinking
+/model baseten/moonshotai/kimi-k2.5
 ```
 
 Or launch with a specific model:
