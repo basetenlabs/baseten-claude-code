@@ -22,6 +22,9 @@ if [ -z "$BASETEN_API_KEY" ]; then
     exit 1
 fi
 
+# Export so litellm child process can access it via os.environ/BASETEN_API_KEY
+export BASETEN_API_KEY
+
 # Start LiteLLM proxy
 echo "✅ Starting LiteLLM proxy on http://localhost:4000"
 echo "🎯 Use Ctrl+C to stop"

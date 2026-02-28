@@ -71,7 +71,7 @@ cat >> "$SHELL_CONFIG" << EOF
 # Baseten Claude Code Configuration
 # Configured by set-baseten.sh from $SCRIPT_DIR
 export ANTHROPIC_BASE_URL="$ANTHROPIC_BASE_URL"
-export ANTHROPIC_API_KEY="$DUMMY_API_KEY"
+export ANTHROPIC_API_KEY="$ANTHROPIC_API_KEY"
 # End Baseten Claude Code Configuration
 EOF
 
@@ -80,7 +80,7 @@ echo ""
 
 # Export variables in current shell (script is sourced, so this works)
 export ANTHROPIC_BASE_URL="$ANTHROPIC_BASE_URL"
-export ANTHROPIC_API_KEY="$DUMMY_API_KEY"
+export ANTHROPIC_API_KEY="$ANTHROPIC_API_KEY"
 echo "🔄 Environment variables set in current shell"
 
 echo ""
